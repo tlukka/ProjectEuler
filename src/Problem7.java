@@ -46,7 +46,7 @@ public class Problem7 {
                     isPrimes[i] = false;
             }
         }
-        List<Integer> primes = new ArrayList<Integer>();
+        List<Integer> primes = new ArrayList<>();
         for (int p = 2; p < MAX_SIZE; p++)
             if (isPrimes[p] == true)
                 primes.add(p);
