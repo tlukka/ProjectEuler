@@ -22,6 +22,7 @@ public class Problem5 {
 
     //// Function returns the lcm of first n numbers
     static long smallestLcm(int n) {
+        // [a*b = gcd(a,b) * lcm(a,b)]
         long ans = 1;
         for (int i = 1; i <= n; i++) {
             ans = (ans * i) / (greatestCommonDivisor(ans, i));

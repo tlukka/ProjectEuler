@@ -29,20 +29,10 @@ public class Problem3 {
         long result = 0;
 
         for (long i = 1; i <= num; i++)
-            if (num % i == 0 && isPrimeNumber(i))
+            if (num % i == 0 && Utility.isPrimeNumber(i))
                 result = i;
 
         return result;
-    }
-
-    static boolean isPrimeNumber(long n) {
-        if (n == 1)
-            return true;
-        for (int i = 2; i < n - 1; i++)
-            if (n % i == 0)
-                return false;
-
-        return true;
     }
 
     static long maxPrimeFactors(long num) {
