@@ -1,11 +1,15 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Problem4 {
     // Largest Palindrome product of two 3 digits number which are less than N
     // input 101110 and o/p: 101101 -> product of 143 * 707
     // i/p 800000 and o/p: 793397 -> product of 869 * 913
 
     public static void main(String[] args) {
-        System.out.println(largestPalindromeBruteForce(101110));
-        System.out.println(largestPalindromeBruteForce(800000));
+        System.out.println(largestPalindromeNativeApproach(101110));
+        System.out.println(largestPalindromeNativeApproach(800000));
         System.out.println(largestPalindromeProductNDigits(2));
         System.out.println(largestPalindromeProductNDigits(3));
         System.out.println(largestPalindromeProductNDigits(4));
@@ -31,6 +35,7 @@ public class Problem4 {
 
     static long longestPalindromeWithOptimize(int num) {
         int step = 1;
+        List<Long> palindromesList = new ArrayList<>();
         for (int i = 990; i >= 100; i--) {
             int j = 0;
             if (i % 11 == 0) {
@@ -42,31 +47,26 @@ public class Problem4 {
             }
             for (; j >= 100; j = j - step) {
                 long product = i * j;
-                if (product > num)
-                    continue;
-                if (isPalindrome(product)) {
-                    System.out.println("Product of Largest palindrome and numbers are " + i + "," + j);
-                    return product;
+                if (isPalindrome(product) && product < num) {
+                    palindromesList.add(product);
                 }
             }
         }
-        return 0;
+        return Collections.max(palindromesList);
     }
 
-    static long largestPalindromeBruteForce(int num) {
+    static long largestPalindromeNativeApproach(int num) {
         // travel from highest to lowest in 3 digits
+        List<Long> palindromesList = new ArrayList<>();
         for (int i = 999; i > 100; i--) {
             for (int j = i; j > 100; j--) {
-                int largest = i * j;
-                if (num > largest)
-                    continue;
-                if (isPalindrome(largest)) {
-                    System.out.println("Product of Largest palindrome and numbers are " + i + "," + j);
-                    return largest;
+                long product = i * j;
+                if (isPalindrome(product) && product < num) {
+                    palindromesList.add(product);
                 }
             }
         }
-        return -1;
+        return Collections.max(palindromesList);
     }
 
 
