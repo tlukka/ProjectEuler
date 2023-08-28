@@ -6,23 +6,69 @@ public class Problem4 {
     public static void main(String[] args) {
         System.out.println(largestPalindromeBruteForce(101110));
         System.out.println(largestPalindromeBruteForce(800000));
+        System.out.println(largestPalindromeProductNDigits(2));
+        System.out.println(largestPalindromeProductNDigits(3));
+        System.out.println(largestPalindromeProductNDigits(4));
+        System.out.println(longestPalindromeWithOptimize(101110));
+        System.out.println(longestPalindromeWithOptimize(800000));
+    }
+
+    // Function to calculate largest palindrome which isproduct of two n-digits numbers
+    static long largestPalindromeProductNDigits(int n) {
+        int upperLimit = (int) (Math.pow(10, n) - 1);
+        int lowerLimit = 1 + upperLimit / 10;
+        for (int i = upperLimit; i >= lowerLimit; i--) {
+            for (int j = i; j >= lowerLimit; j--) {
+                long product = i * j;
+                if (isPalindrome(product)) {
+                    System.out.println("Product of Largest palindrome and numbers are " + i + "," + j);
+                    return product;
+                }
+            }
+        }
+        return -1;
+    }
+
+    static long longestPalindromeWithOptimize(int num) {
+        int step = 1;
+        for (int i = 990; i >= 100; i--) {
+            int j = 0;
+            if (i % 11 == 0) {
+                step = 1;
+                j = i;
+            } else {
+                step = 11;
+                j = i - i % 11;
+            }
+            for (; j >= 100; j = j - step) {
+                long product = i * j;
+                if (product > num)
+                    continue;
+                if (isPalindrome(product)) {
+                    System.out.println("Product of Largest palindrome and numbers are " + i + "," + j);
+                    return product;
+                }
+            }
+        }
+        return 0;
     }
 
     static long largestPalindromeBruteForce(int num) {
         // travel from highest to lowest in 3 digits
         for (int i = 999; i > 100; i--) {
-            for (int j = 999; j > 100; j--) {
+            for (int j = i; j > 100; j--) {
                 int largest = i * j;
-                if(num < largest)
+                if (num > largest)
                     continue;
                 if (isPalindrome(largest)) {
-                    System.out.println("Product of Larest palindrome and numbers are " + i + "," + j);
+                    System.out.println("Product of Largest palindrome and numbers are " + i + "," + j);
                     return largest;
                 }
             }
         }
         return -1;
     }
+
 
     static boolean isPalindrome(long n) {
         char[] charrArray = ("" + n).toCharArray();
