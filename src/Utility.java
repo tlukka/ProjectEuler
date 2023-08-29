@@ -25,4 +25,16 @@ public class Utility {
         }
         return 1;
     }
+
+    public static int divisorCount(long num) {
+        int divisorCount = 0;
+        for (int i = 1; i < Math.sqrt(num); i++) {
+            if (num % i == 0)
+                divisorCount++;
+            long anotherFactor = num / i;
+            if (anotherFactor != i)
+                divisorCount++;
+        }
+        return divisorCount;
+    }
 }

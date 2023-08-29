@@ -5,7 +5,7 @@ public class Problem11 {
         System.out.println(maxProductInGrid(SQUARE1));
         System.out.println(maxProductInGrid(SQUARE2));
         System.out.println(maxProductInGrid(SQUARE));
-         int[][] a = new int[][]{
+        int[][] a = new int[][]{
                 {1, 2, 3, 4, 5}, {6, 7, 8, 9, 1},
                 {2, 3, 4, 5, 6}, {7, 8, 9, 1, 0},
                 {9, 6, 4, 2, 3}, {1, 1, 2, 1, 1}
@@ -17,7 +17,11 @@ public class Problem11 {
         int row2 = SQUARE2.length, col2 = SQUARE2[0].length;
         System.out.println(maxProductInAdjustCell(a, row, col, 4));
         System.out.println(maxProductInAdjustCell(SQUARE, row1, col1, 4));
-        System.out.println(maxProductInAdjustCell(SQUARE2, row2, col2, 3));
+        System.out.println(maxProductInAdjustCell(SQUARE2, row2, col2, 4));
+
+        System.out.println(maxProductInCell(SQUARE1));
+        System.out.println(maxProductInCell(SQUARE2));
+        System.out.println(maxProductInCell(SQUARE));
     }
 
     static int[][] SQUARE1 = {
@@ -90,15 +94,15 @@ public class Problem11 {
     // Sliding Window apporach
     static long maxProductInAdjustCell(int[][] arr, int row, int col, int k) {
         long max_Product = 1, maxProdctResult = 1;
-        for (int i = 0; i < row; i++) {
+        for (int i = 0; i < row; ++i) {
             // Window Product for each row with digits.
             int wp = 1;
-            for (int j = 0; j < k; j++) {
+            for (int j = 0; j < k; ++j) {
                 wp *= arr[i][j];
             }
             // Maximum window product for each row
             max_Product = wp;
-            for (int l = k; l < col; l++) {
+            for (int l = k; l < col; ++l) {
                 int currentCell = arr[i][l];
                 int firstCellInPreviousWindow = arr[i][l - k];
                 wp = (wp * currentCell) / firstCellInPreviousWindow;
@@ -108,5 +112,30 @@ public class Problem11 {
         }
 
         return maxProdctResult;
+    }
+
+
+    static long maxProductInCell(int[][] arr) {
+        long max_Product = 1;
+        for (int r = 0; r < arr.length; r++) {
+            for (int c = 0; c < arr[r].length; c++) {
+                int downProduct = 1, rightProduct = 1, upRightProduct = 1, downRightProduct = 1;
+                if (r <= arr.length - 4)
+                    downProduct = arr[r][c] * arr[r + 1][c] * arr[r + 2][c] * arr[r + 3][c];
+                if (c <= arr[r].length - 4)
+                    rightProduct = arr[r][c] * arr[r][c + 1] * arr[r][c + 2] * arr[r][c + 3];
+                if (r >= 3 && c <= arr[r].length - 4)
+                    upRightProduct = arr[r][c] * arr[r - 1][c + 1] * arr[r - 2][c + 2] * arr[r - 3][c + 3];
+                if (r <= arr.length - 4 && c <= arr[r].length - 4)
+                    downRightProduct = arr[r][c] * arr[r + 1][c + 1] * arr[r + 2][c + 2] * arr[r + 3][c + 3];
+
+                max_Product = Math.max(downProduct, max_Product);
+                max_Product = Math.max(rightProduct, max_Product);
+                max_Product = Math.max(upRightProduct, max_Product);
+                max_Product = Math.max(downRightProduct, max_Product);
+            }
+        }
+
+        return max_Product;
     }
 }
