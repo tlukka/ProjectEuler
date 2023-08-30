@@ -1,3 +1,5 @@
+import java.math.BigInteger;
+
 public class Utility {
     public static boolean isPrimeNumber(long n) {
         if (n == 1)
@@ -36,5 +38,24 @@ public class Utility {
                 divisorCount++;
         }
         return divisorCount;
+    }
+
+
+    static BigInteger factorial(int n) {
+        if (n < 0)
+            throw new IllegalArgumentException("Factorial of negative number");
+        BigInteger product = BigInteger.ONE;
+        for (int i = 2; i < n; i++) {
+            product = product.multiply(BigInteger.valueOf(i));
+        }
+
+        return product;
+    }
+
+    // bionimal cofficent
+    static BigInteger bionimalCofficent(int n, int r) {
+        if(n<0 || r<0)
+            throw new IllegalArgumentException("Invalid inputs");
+        return factorial(n).divide(factorial(r).multiply(factorial(n-r)));
     }
 }
