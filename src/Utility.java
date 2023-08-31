@@ -40,6 +40,15 @@ public class Utility {
         return divisorCount;
     }
 
+    public static int divisorSum(long num) {
+        int sum = 0;
+        for (int i = 1; i < num; i++) {
+            if (num % i == 0)
+                sum += i;
+        }
+        return sum;
+    }
+
 
     static BigInteger factorial(int n) {
         if (n < 0)
@@ -54,8 +63,21 @@ public class Utility {
 
     // bionimal cofficent
     static BigInteger bionimalCofficent(int n, int r) {
-        if(n<0 || r<0)
+        if (n < 0 || r < 0)
             throw new IllegalArgumentException("Invalid inputs");
-        return factorial(n).divide(factorial(r).multiply(factorial(n-r)));
+        return factorial(n).divide(factorial(r).multiply(factorial(n - r)));
+    }
+
+    static boolean isLeapYear(int year) {
+        if (year % 4 == 0) {
+            if (year % 100 == 0) {
+                if (year % 400 == 0) {
+                    return true;
+                }
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 }
