@@ -1,8 +1,11 @@
+import java.util.Hashtable;
+
 public class Problem19 {
 
 
     public static void main(String[] args) {
         System.out.println("Number of Mondays between 1901 to 2000 is " + countOfMondayBetweenYears(1901, 2000, 1));
+        System.out.println("Number of Mondays between 1901 to 2000 is " + countOfMondayBetweenYearsBF(1902, 2000, 0));
     }
 
     // Use Constants for Months
@@ -33,12 +36,44 @@ public class Problem19 {
         if (endYear < 0 || startYear < 0 || startYear > endYear)
             throw new IllegalArgumentException("Invalid inputs");
         int countOfMonday = 0;
-        for (int y = startYear; y <= endYear; y++)
-            for (int m = 1; m <= 12; m++) {
-                if (dayOfWeekBySakamoto(y, m, countDay) == 0)
-                    countOfMonday++;
+        Hashtable<Integer, Integer> dayTable = new Hashtable<Integer, Integer>();
+        dayTable.put(JAN, 31);
+        dayTable.put(FEB, 28);
+        dayTable.put(MAR, 31);
+        dayTable.put(APR, 30);
+        dayTable.put(MAY, 31);
+        dayTable.put(JUN, 30);
+        dayTable.put(JUL, 31);
+        dayTable.put(AUG, 31);
+        dayTable.put(SEP, 30);
+        dayTable.put(OCT, 31);
+        dayTable.put(NOV, 30);
+        dayTable.put(DEC, 31);
 
+        // 1/1/00 is the first day
+        int currMonth = JAN;
+        int currDayOfMonth = 1;
+        int currDay = MON;
+        int currYear = startYear;
+        while (currYear <= endYear) {
+            if (currDay == countDay && currDayOfMonth == 1 && currYear != 1900) {
+                countOfMonday++;
             }
+            int monthDayTotal = dayTable.get(currMonth);
+            if (currMonth == FEB && Utility.isLeapYear(currYear)) {
+                monthDayTotal++;
+            }
+
+            currDay = (currDay + 1) % 7;
+            currDayOfMonth++;
+            if (currDayOfMonth > monthDayTotal) {
+                if (currMonth == DEC) {
+                    currYear++;
+                }
+                currDayOfMonth = 1;
+                currMonth = (currMonth + 1) % 12;
+            }
+        }
         return countOfMonday;
     }
 
