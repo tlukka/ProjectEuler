@@ -34,13 +34,15 @@ public class Problem2 {
     static int sumOfEvenFibonacci(int fibNumber) {
         int a = 1, b = 2, c = 3;
         int result = 0;
-        if(fibNumber <= 2)
+        if (fibNumber <= 2)
             return result;
         result = 2;
-        while (fibNumber > c) {
+        while (c < fibNumber) {
             if (c % 2 == 0)
                 result += c;
-            a = b; b = c; c = a + b;
+            a = b;
+            b = c;
+            c = a + b;
         }
         return result;
     }

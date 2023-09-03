@@ -21,6 +21,7 @@ public class Utility {
             return 0;
 
         // concept of prime number can be represented in form of (6*k + 1) or(6*k - 1)
+        // 1,2,3,5,7,13,19,23,29...
         for (int i = 5; i * i <= n; i = i + 6) {
             if (n % i == 0 || n % (i + 2) == 0)
                 return 0;
@@ -79,5 +80,50 @@ public class Utility {
             return true;
         }
         return false;
+    }
+
+
+    static boolean nextPermutation(int[] arr) {
+        // assuming array starts with the lowest number
+        // find array non-increasing suffix
+        int i = arr.length - 1;
+        while (i > 0 && arr[i - 1] >= arr[i]) {
+            i--;
+        }
+        if (i <= 0)
+            return false;
+        // find rightmost element greater than the pivot
+        int j = arr.length - 1;
+        while (arr[i - 1] >= arr[j]) {
+            j--;
+        }
+
+        // Swap the elements of pivot and j values
+        int temp = arr[i - 1];
+        arr[i - 1] = arr[j];
+        arr[j] = temp;
+
+        // Reverse the suffix
+        j = arr.length - 1;
+        while (i < j) {
+            temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+    static long nextFibonacci(int n) {
+        int[] nums = new int[n + 1];
+        nums[0] = 1;
+        nums[1] = 1;
+        int i = 1;
+        while (i++ < n)
+            nums[i] = nums[i - 1] + nums[i - 2];
+
+
+        return nums[n];
     }
 }
