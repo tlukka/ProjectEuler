@@ -29,6 +29,7 @@ public class Utility {
         return 1;
     }
 
+
     public static int divisorCount(long num) {
         int divisorCount = 0;
         for (int i = 1; i < Math.sqrt(num); i++) {
@@ -126,4 +127,5 @@ public class Utility {
 
         return nums[n];
     }
+
 }
