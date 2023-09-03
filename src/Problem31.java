@@ -6,4 +6,25 @@ public class Problem31 {
     //How many different ways can £2 be made using any number of coins?
 
 
+    public static void main(String[] args) {
+        System.out.println(countSumCoins(new int[]{1, 2, 5, 10, 20, 50, 100, 200}, 200));
+        System.out.println(countSumCoins(new int[]{1, 2, 5, 10, 20}, 20));
+        System.out.println(countSumCoins(new int[]{1, 2, 5, 10, 20}, 15));
+        System.out.println(countSumCoins(new int[]{1, 2, 5, 10, 20}, 10));
+        System.out.println(countSumCoins(new int[]{1, 2, 5, 10, 20}, 3));
+    }
+
+    static int countSumCoins(int[] coins, int targetSum) {
+        // ways[i] is the number of ways to use any copies of the first i coin values to form an unordered sum of j
+
+        int[] targets = new int[targetSum + 1];
+        targets[0] = 1;
+        for (int coin : coins) {
+            for (int i = 1; i < targets.length; i++) {
+                if (i >= coin)
+                    targets[i] += targets[i - coin]; // sum up with pervious
+            }
+        }
+        return targets[targetSum];
+    }
 }
