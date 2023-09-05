@@ -24,6 +24,7 @@ public class Problem35 {
     static boolean isCircularPrime(int n) {
         String strI = Long.toString(n);
         for (int j = 0; j < strI.length(); j++) {
+            // check circular prime condition
             if (!isPrimesArray[Integer.parseInt(strI.substring(j) + strI.substring(0, j))])
                 return false;
         }

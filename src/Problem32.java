@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Problem32 {
     // PANDIGITAL PRODUCTS
     //an n-digit number is pandigital if it makes use of all the digits 1 to n exactly once; for example,
@@ -28,18 +26,11 @@ public class Problem32 {
         // Find and examine all factors of n
         for (int i = 1; i <= n; i++) {
             // checking i should divide n
-            if (n % i == 0 && isPanDigital("" + n + i + n / i)) {
+            if (n % i == 0 && Utility.isPanDigital("" + n + i + n / i)) {
                 return true;
             }
         }
         return false;
     }
 
-    static boolean isPanDigital(String str) {
-        if (str.length() != 9)
-            return false;
-        char[] temp = str.toCharArray();
-        Arrays.sort(temp);
-        return new String(temp).equals("123456789");
-    }
 }

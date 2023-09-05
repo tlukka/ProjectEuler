@@ -1,4 +1,5 @@
 import java.math.BigInteger;
+import java.util.Arrays;
 
 public class Utility {
     public static boolean isPrimeNumber(long n) {
@@ -178,5 +179,29 @@ public class Utility {
             y = z;
         }
         return x;
+    }
+
+    static boolean isPalindrome(String s) {
+        return new StringBuilder(s).reverse().toString().equals(s);
+    }
+
+
+    static boolean isPalindromString(String x) {
+        char[] arr = x.toCharArray();
+        int len = arr.length;
+        for (int i = 0; i < len / 2; i++) {
+            if (arr[i] != arr[len - i - 1])
+                return false;
+        }
+        return true;
+    }
+
+
+    public static boolean isPanDigital(String str) {
+        if (str.length() != 9)
+            return false;
+        char[] temp = str.toCharArray();
+        Arrays.sort(temp);
+        return new String(temp).equals("123456789");
     }
 }
