@@ -33,6 +33,7 @@ public class Problem10 {
         for (int i = 2; i <= Math.sqrt(num); i++) {
             // all multiples of current prime is non-prime
             if (isPrime[i]) {
+                // all squares will be non prime numbers
                 for (int j = i * i; j <= num; j += i) {
                     isPrime[j] = false;
                 }

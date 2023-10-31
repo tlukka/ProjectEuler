@@ -64,9 +64,9 @@ public class Problem11 {
         for (int y = 0; y < rowLen; y++) {
             int colLen = arrSquare[y].length;
             for (int x = 0; x < colLen; x++) {
-                max_Prod = Math.max(product(x, y, 1, 0, CONSECUTIVE, rowLen, colLen, arrSquare), max_Prod);
-                max_Prod = Math.max(product(x, y, 0, 1, CONSECUTIVE, rowLen, colLen, arrSquare), max_Prod);
-                max_Prod = Math.max(product(x, y, 1, 1, CONSECUTIVE, rowLen, colLen, arrSquare), max_Prod);
+                max_Prod = Math.max(product(x, y, 1, 0, CONSECUTIVE, rowLen, colLen, arrSquare), max_Prod); //D
+                max_Prod = Math.max(product(x, y, 0, 1, CONSECUTIVE, rowLen, colLen, arrSquare), max_Prod); //U
+                max_Prod = Math.max(product(x, y, 1, 1, CONSECUTIVE, rowLen, colLen, arrSquare), max_Prod); //
                 max_Prod = Math.max(product(x, y, 1, -1, CONSECUTIVE, rowLen, colLen, arrSquare), max_Prod);
             }
         }
@@ -84,8 +84,10 @@ public class Problem11 {
             return -1;
         }
         int prod = 1;
-        for (int i = 0; i < n; i++, x += dx, y += dy) {
+        for (int i = 0; i < n; i++) {
             prod *= arr[y][x];
+            x += dx;
+            y += dy;
         }
         return prod;
     }
